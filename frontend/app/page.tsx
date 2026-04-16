@@ -115,8 +115,8 @@ export default function Home() {
                   }
                 }}
                 viewport={{ once: true }}
-                className="relative w-[42%] sm:w-40 h-24 sm:h-40 md:w-52 md:h-52 flex items-center justify-center">
-                <Image src={t.src} alt={t.name} fill className="object-contain" sizes="(max-width: 1366px) 200px, 0px" unoptimized />
+                className="relative w-[42%] h-28 sm:w-[30%] sm:h-36 md:w-[28%] md:h-44 lg:h-48 flex items-center justify-center">
+                <Image src={t.src} alt={t.name} fill className="object-contain" sizes="(max-width: 1366px) 300px, 0px" unoptimized />
               </motion.div>
             ))}
           </div>
@@ -124,8 +124,20 @@ export default function Home() {
           {/* Desktop Display */}
           <div className="hidden min-[1367px]:flex flex-nowrap justify-center items-center gap-8">
             {tenants.map((t, i) => (
-              <motion.div key={`${t.name}-desk`} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
-                className="relative w-auto h-[220px] xl:h-[280px] flex-1 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105">
+              <motion.div key={`${t.name}-desk`} custom={i} 
+                initial={{ opacity: 0, y: 30, filter: 'grayscale(100%)' }}
+                whileInView={{ 
+                  opacity: 1, 
+                  y: 0, 
+                  filter: 'grayscale(0%)',
+                  transition: {
+                    opacity: { duration: 0.6, delay: i * 0.1 },
+                    y: { duration: 0.6, delay: i * 0.1 },
+                    filter: { duration: 0.6, delay: 1.2 + (i * 0.2) } 
+                  }
+                }}
+                viewport={{ once: true }}
+                className="relative w-auto h-[220px] xl:h-[280px] flex-1 flex items-center justify-center transition-transform duration-500 hover:scale-105">
                 <Image src={t.src} alt={t.name} fill className="object-contain" sizes="300px" unoptimized />
               </motion.div>
             ))}
